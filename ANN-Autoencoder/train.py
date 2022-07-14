@@ -7,7 +7,7 @@ import joblib
 import seaborn as sns
 import matplotlib.pyplot as plt
 import h5py as h5
-import setGPU
+#import setGPU
 from sklearn.preprocessing import MinMaxScaler
 #from gwpy.timeseries import TimeSeries
 from keras.callbacks import EarlyStopping, ModelCheckpoint, Callback
