@@ -11,7 +11,7 @@ from matplotlib import rcParams
 from matplotlib import rc
 import h5py as h5
 import tensorflow as tf
-from gwpy.timeseries import TimeSeries
+#from gwpy.timeseries import TimeSeries
 from keras.models import load_model
 from tensorflow.keras.losses import mean_absolute_error, MeanAbsoluteError, mean_squared_error, MeanSquaredError
 from sklearn.model_selection import train_test_split
