@@ -322,8 +322,8 @@ def main(args):
     ##### Evaluate Unsupervised methods ######
     
     scaler = MinMaxScaler()
+    X_train_L1 = scaler.fit_transform(load_L1['noise'][:datapoints, 8704:13825].reshape((-1, 1))).reshape((-1,13825-8704))
     X_test_L1 = scaler.transform(load_L1['injection'][:datapoints, 8704:13825].reshape((-1, 1))).reshape((-1,13825-8704))
-    X_train_L1 = scaler.transform(load_L1['noise'][:datapoints, 8704:13825].reshape((-1, 1))).reshape((-1,13825-8704))
     X_test_H1 = scaler.transform(load_H1['injection'][:datapoints, 8704:13825].reshape((-1, 1))).reshape((-1,13825-8704))
     X_train_H1 = scaler.transform(load_H1['noise'][:datapoints, 8704:13825].reshape((-1, 1))).reshape((-1,13825-8704))
         
