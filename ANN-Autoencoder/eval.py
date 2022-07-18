@@ -305,8 +305,9 @@ def main(args):
     timesteps = int(args.timesteps)
     os.system('mkdir -p %s' % outdir)
     
-    load = h5.File('../ggwd/output/updated_BBH_8sec_SEOBNRv4_12seed.hdf', 'r')
-    
+    load_H1 = h5.File('/eos/project/d/dshep/GWanomaly/default_BIGsim_testtrain_H1.h5', 'r')
+    load_L1 = h5.File('/eos/project/d/dshep/GWanomaly/default_BIGsim_testtrain_L1.h5', 'r')
+       
     # Define frequency in Hz instead of KHz
     if int(freq) == 2:
         freq = 2048
@@ -320,10 +321,10 @@ def main(args):
     ##### Evaluate Unsupervised methods ######
     
     scaler = joblib.load('../scalers/standard_scaler') 
-    X_test_L1 = scaler.transform(load['injection_samples']['l1_strain'][:datapoints, 8704:13825].reshape((-1, 1))).reshape((-1,13825-8704))
-    X_train_L1 = scaler.transform(load['noise_samples']['l1_strain'][:datapoints, 8704:13825].reshape((-1, 1))).reshape((-1,13825-8704))
-    X_test_H1 = scaler.transform(load['injection_samples']['h1_strain'][:datapoints, 8704:13825].reshape((-1, 1))).reshape((-1,13825-8704))
-    X_train_H1 = scaler.transform(load['noise_samples']['h1_strain'][:datapoints, 8704:13825].reshape((-1, 1))).reshape((-1,13825-8704))
+    X_test_L1 = scaler.transform(load_L1['injection'][:datapoints, 8704:13825].reshape((-1, 1))).reshape((-1,13825-8704))
+    X_train_L1 = scaler.transform(load_L1['noise'][:datapoints, 8704:13825].reshape((-1, 1))).reshape((-1,13825-8704))
+    X_test_H1 = scaler.transform(load_H1['injection'][:datapoints, 8704:13825].reshape((-1, 1))).reshape((-1,13825-8704))
+    X_train_H1 = scaler.transform(load_H1['noise'][:datapoints, 8704:13825].reshape((-1, 1))).reshape((-1,13825-8704))
         
     #del load_scaled_L1, load_scaled_H1, load_L1, load_H1
     
@@ -334,9 +335,9 @@ def main(args):
     #directory_list = ['BBH_training_supervsed_LSTM_tanh_BNS', 'BNS_training_unsupervised_GRU_100', 'BNS_training_unsupervised_PaperConv']
     
     ### List 1+ unsupervised training directories here ###
-    directory_list = ['LSTM', 'GRU', 'CNN'] # will look inside these directories
-    names_unsupervised = ['LSTM Autoencoder ', 'GRU Autoencoder', 'CNN Autoencoder'] # plot with these names
-    timesteps = [100, 100, 1024] # use these timesteps for the corresponding above models
+    directory_list = ['BIGsimdata_L1_2KHz_unsupervised_filtered_LSTM'] # will look inside these directories
+    names_unsupervised = ['LSTM Autoencoder '] # plot with these names
+    timesteps = [100] # use these timesteps for the corresponding above models
 
     
     FPR_set = []
