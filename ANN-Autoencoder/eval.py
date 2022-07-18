@@ -19,6 +19,7 @@ from random import sample as RandSample
 from sklearn.metrics import auc
 import setGPU 
 from sklearn.metrics import roc_curve, auc, accuracy_score
+from sklearn.preprocessing import MinMaxScaler
 
 rc('font',**{'family':'sans-serif','sans-serif':['Helvetica']})
 rcParams['font.size'] = 18
@@ -320,7 +321,7 @@ def main(args):
 
     ##### Evaluate Unsupervised methods ######
     
-    scaler = joblib.load('../scalers/standard_scaler') 
+    scaler = MinMaxScaler()
     X_test_L1 = scaler.transform(load_L1['injection'][:datapoints, 8704:13825].reshape((-1, 1))).reshape((-1,13825-8704))
     X_train_L1 = scaler.transform(load_L1['noise'][:datapoints, 8704:13825].reshape((-1, 1))).reshape((-1,13825-8704))
     X_test_H1 = scaler.transform(load_H1['injection'][:datapoints, 8704:13825].reshape((-1, 1))).reshape((-1,13825-8704))
